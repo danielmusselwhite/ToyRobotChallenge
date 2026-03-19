@@ -1,5 +1,6 @@
 package toyrobot.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,6 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RobotServiceTest {
 
+    private Table table;
+    private RobotService service;
+
+    @BeforeEach
+    void setUp() {
+        table = new Table(5, 5);
+        service = new RobotService(table);
+    }
+
     @ParameterizedTest(name = "PLACE {0},{1},{2} → MOVE → REPORT = {3},{4},{5}")
     @CsvSource({
             "0,0,NORTH,0,2,WEST",
@@ -19,9 +29,6 @@ public class RobotServiceTest {
     })
     void testMoves(int placeX, int placeY, Direction facing,
                    int expectedX, int expectedY, Direction expectedFacing) {
-        Table table = new Table(5, 5);
-        RobotService service = new RobotService(table);
-
         // Place the robot
         service.place(placeX, placeY, facing);
 
@@ -37,9 +44,6 @@ public class RobotServiceTest {
 
     @Test
     void testRotations() {
-        Table table = new Table(5, 5);
-        RobotService service = new RobotService(table);
-
         service.place(0, 0, Direction.NORTH);
         service.left();
         assertEquals("0,0,WEST", service.report());
@@ -53,23 +57,25 @@ public class RobotServiceTest {
 
     @Test
     void testBoundaryMovesIgnored() {
-        Table table = new Table(5, 5);
-        RobotService service = new RobotService(table);
-
         service.place(0, 0, Direction.SOUTH);
         service.move(); // would go off table, so don't move
         assertEquals("0,0,SOUTH", service.report());
 
+        service.place(0, 0, Direction.WEST);
+        service.move(); // would go off table, so don't move
+        assertEquals("0,0,WEST", service.report());
+
         service.place(4, 4, Direction.NORTH);
         service.move(); // would go off table, so don't move
         assertEquals("4,4,NORTH", service.report());
+
+        service.place(4, 4, Direction.EAST);
+        service.move(); // would go off table, so don't move
+        assertEquals("4,4,EAST", service.report());
     }
 
     @Test
     void testMultiplePlaceCommands() {
-        Table table = new Table(5, 5);
-        RobotService service = new RobotService(table);
-
         service.place(0, 0, Direction.NORTH);
         service.move();
         assertEquals("0,1,NORTH", service.report());
@@ -81,9 +87,6 @@ public class RobotServiceTest {
 
     @Test
     void testCommandsIgnoredBeforePlace() {
-        Table table = new Table(5, 5);
-        RobotService service = new RobotService(table);
-
         assertNull(service.report());
         service.move();
         service.left();

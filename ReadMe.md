@@ -107,3 +107,9 @@ mvn test
 - RobotService manages Robot state changes accordingly
 
 - If valid, Robot updates its state
+
+## Testing Overview
+
+The project includes unit tests to ensure correctness of the robot's behavior and command execution.
+
+- **Frameworks used:** JUnit 5, Mockito

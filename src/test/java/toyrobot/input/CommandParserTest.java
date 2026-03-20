@@ -59,10 +59,14 @@ class CommandParserTest {
 
     @Test
     void testPlaceCommandInvalidFormat() {
-        parser.executeCommand("PLACE 1,2"); // missing direction
+        parser.executeCommand("PLACE 1,2");
 
         verify(robotService, never()).place(anyInt(), anyInt(), any(Direction.class));
-        assertEquals("", outContent.toString()); // silently ignored
+
+        assertTrue(
+                outContent.toString().contains("Invalid PLACE command: PLACE 1,2"),
+                "Expected output to contain 'Invalid PLACE command: PLACE 1,2', but was:\n" + outContent.toString()
+        );
     }
 
     @Test

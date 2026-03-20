@@ -51,9 +51,9 @@ public class CommandParser {
         try {
             // parse and safety check the string
             String[] parts = input.split(" "); // should have 'PLACE X,Y,F'
-            if (parts.length < 2) return; // invalid PLACE
+            if (parts.length < 2) throw new Exception();
             String[] args = parts[1].split(","); // should have X,Y,F
-            if (args.length < 3) return;
+            if (args.length < 3) throw new Exception();
 
             // get x,y,f
             int x = Integer.parseInt(args[0]);

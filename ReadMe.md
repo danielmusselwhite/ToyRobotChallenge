@@ -1,11 +1,5 @@
 # ToyRobotChallenge Solution
 
-## TODO:
-
-- Confirm debug binding + fresh install to ensure maven build is ide independent
-- Confirm all outputs are expected, and add more test cases if needed, then correct the code
-- TODO - How to run section
-
 ## Original Brief 
 
 - [Link](docs/Brief.md)
@@ -13,8 +7,34 @@
 
 ## How to run
 
-- Just simple run instructions
+### Prerequisites
 
+- **Java JDK 25** installed and `JAVA_HOME` set
+- **Maven** installed and available on your PATH
+
+
+### Run the application
+
+From the root of the project, run:
+
+```bash
+mvn clean install
+```
+
+### Run tests
+
+To execute the test suite:
+
+```bash
+mvn test
+```
+
+### Run from IntelliJ IDEA
+
+* Open the project in IntelliJ IDEA
+* Wait for Maven dependencies to load
+* Locate the main class
+* Right-click → **Run**
 
 ## Example Run 
 

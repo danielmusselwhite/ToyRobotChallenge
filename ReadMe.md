@@ -22,7 +22,7 @@
 
 ## Description
 
-![Uml Diagram](docs/uml.png)
+![Uml Diagram](docs/UML.png)
 
 ### Architecture Overview
 
